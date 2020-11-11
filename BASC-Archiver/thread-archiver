@@ -1,0 +1,92 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# BASC Imageboard Archiver
+from __future__ import absolute_import
+from __future__ import print_function
+from docopt import docopt
+import sys
+import time
+
+from basc_archiver import version, Options, Archiver
+
+__doc__ = """BASC-Archiver.
+
+Archives threads from 4chan and other imageboards, including images and/or
+thumbnails, thread HTML, JSON if available, and produces a list of
+referenced external links.
+
+Usage:
+  thread-archiver <url>... [options]
+  thread-archiver -h | --help
+  thread-archiver -V | --version
+
+Options:
+  --path=<string>                Path to folder where archives will be saved [default: ./archive]
+  --runonce                      Downloads the thread as it is presently, then exits
+  --thread-check-delay=<float>   Delay between checks of the same thread [default: 90]
+  --delay=<float>                Delay between file downloads [default: 0]
+  --poll-delay=<float>           Delay between thread checks [default: 2]
+  --runonce-poll=<float>         Delay between checks when using --runonce [default: 1.5]
+  --dl-threads-per-site=<int>    Download threads to use per site [default: 5]
+  --dl-thread-wait=<float>       Seconds to wait between downloads on each thread [default: 0.1]
+  --nothumbs                     Don't download thumbnails
+  --thumbsonly                   Download thumbnails, no images
+  --nojs                         Don't download javascript
+  --nocss                        Don't download css
+  --ssl                          Download using HTTPS
+  --follow-children              Follow threads linked in downloaded threads
+  --follow-to-other-boards       Follow linked threads, even if from other boards
+  --silent                       Suppresses mundane printouts, prints what's important
+  -v --verbose                   Printout more information than normal
+  -h --help                      Show help
+  -V --version                   Show version
+"""
+
+if __name__ == '__main__':
+    args = docopt(__doc__, version='BASC-Archiver v{}'.format(version))
+
+    options = Options(args['--path'], args['--ssl'],
+                      silent=args['--silent'],
+                      verbose=args['--verbose'],
+                      delay=args['--delay'],
+                      thread_check_delay=args['--thread-check-delay'],
+                      run_once=args['--runonce'],
+                      dl_threads_per_site=args['--dl-threads-per-site'],
+                      dl_thread_wait=args['--dl-thread-wait'],
+                      skip_thumbs=args['--nothumbs'],
+                      thumbs_only=args['--thumbsonly'],
+                      skip_js=args['--nojs'],
+                      skip_css=args['--nocss'],
+                      follow_child_threads=args['--follow-children'],
+                      follow_to_other_boards=args['--follow-to-other-boards'],)
+    archiver = Archiver(options)
+
+    print('Starting download')
+
+    # add threads to our archiver
+    for url in args['<url>']:
+        archiver.add_thread(url)
+
+    if archiver.existing_threads < 1:
+        print('')
+        print('We could not find any of the supplied threads, exiting.')
+        sys.exit(0)
+
+    # download thread loop
+    try:
+        while True:
+            if archiver.files_to_download < 1:
+                print('')
+                if options.run_once:
+                    print('All threads have been downloaded, exiting.')
+                else:
+                    print("All threads have either 404'd or no longer exist, exiting.")
+                break
+
+            if options.run_once:
+                time.sleep(float(args['--runonce-poll']))
+            else:
+                time.sleep(float(args['--poll-delay']))
+    except KeyboardInterrupt:
+        print('')
+        print('Dump complete. To resume dumping, run this script again.')

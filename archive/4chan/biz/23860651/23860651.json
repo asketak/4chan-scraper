@@ -1,0 +1,55 @@
+{
+  "posts": [
+    {
+      "bumplimit": 0,
+      "com": "Whats a good crypto wallet to use? Im kind of new to the whole crypto currency and i was eondering what a good crypto wallet would be. Ive heard paxful is a good exchange/wallet. Any reccomendations bros?",
+      "ext": ".gif",
+      "filename": "1605040846471",
+      "fsize": 1504913,
+      "h": 250,
+      "id": "RbwU8X5e",
+      "imagelimit": 0,
+      "images": 0,
+      "md5": "+3AUzo/UtX0cYQpGW1iWYw==",
+      "name": "Anonymous",
+      "no": 23860651,
+      "now": "11/11/20(Wed)10:19:56",
+      "replies": 3,
+      "resto": 0,
+      "semantic_url": "whats-a-good-crypto-wallet-to-use-im-kind-of-new",
+      "tim": 1605107996770,
+      "time": 1605107996,
+      "tn_h": 250,
+      "tn_w": 250,
+      "unique_ips": 4,
+      "w": 250
+    },
+    {
+      "com": "For 1 months salary: metamask<br>For lifesavings: trezor<br><br>I love remy bros",
+      "id": "Il/4DkPz",
+      "name": "Anonymous",
+      "no": 23860694,
+      "now": "11/11/20(Wed)10:22:27",
+      "resto": 23860651,
+      "time": 1605108147
+    },
+    {
+      "com": "Remy is perfect what&#039;s the consensus on MEW",
+      "id": "4mP4l/A1",
+      "name": "Anonymous",
+      "no": 23860746,
+      "now": "11/11/20(Wed)10:25:13",
+      "resto": 23860651,
+      "time": 1605108313
+    },
+    {
+      "com": "If your phone is not pozzed, there&#039;s a few wallets that are decent choices. Trust Wallet works nicely and it isen&#039;t as bloated as other choices like Atomic, which also werks.",
+      "id": "GDQiaSMF",
+      "name": "Anonymous",
+      "no": 23861036,
+      "now": "11/11/20(Wed)10:38:21",
+      "resto": 23860651,
+      "time": 1605109101
+    }
+  ]
+}
